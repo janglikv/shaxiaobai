@@ -34,7 +34,7 @@
 ### 2. 获取代码与安装依赖
 ```bash
 # 克隆仓库并进入目录
-git clone <本仓库地址>
+git clone https://github.com/janglikv/shaxiaobai
 cd xiaobaisha
 
 # 安装 Node 依赖
