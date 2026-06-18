@@ -1,0 +1,333 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #eef3f8;
+  background: transparent;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;
+  overflow: hidden;
+}
+
+html {
+  background: transparent;
+}
+
+.overlay {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  background: rgba(13, 18, 24, 1);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  overflow-x: hidden;
+}
+
+header,
+footer,
+.quote,
+dl {
+  display: flex;
+}
+
+header,
+footer {
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mode-toggle {
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(136, 215, 239, 0.9);
+  color: #0d1218;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+header p,
+h1 {
+  margin: 0;
+}
+
+header p {
+  color: #88d7ef;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 22px;
+  letter-spacing: 0;
+}
+
+#status {
+  max-width: 150px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #c9d5df;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#quotes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 18px 0 14px;
+  padding-right: 6px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(136, 215, 239, 0.15) transparent;
+}
+
+#quotes::-webkit-scrollbar {
+  width: 5px;
+}
+
+#quotes::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#quotes::-webkit-scrollbar-thumb {
+  background: rgba(136, 215, 239, 0.15);
+  border-radius: 99px;
+}
+
+#quotes:hover::-webkit-scrollbar-thumb {
+  background: rgba(136, 215, 239, 0.3);
+}
+
+#quotes::-webkit-scrollbar-thumb:hover {
+  background: rgba(136, 215, 239, 0.6) !important;
+}
+
+.quote {
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 32px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  cursor: grab;
+}
+
+.quote.dragging {
+  opacity: 0.55;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.symbol {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.name {
+  display: inline-block;
+  max-width: 104px;
+  margin-left: 6px;
+  color: #aab7c2;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price-block {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 116px;
+  text-align: right;
+}
+
+.price-block strong {
+  font-size: 14px;
+}
+
+.price-block span {
+  color: #c1ccd4;
+  font-size: 12px;
+}
+
+.quote.up .price-block span {
+  color: #ff7f7a;
+}
+
+.quote.down .price-block span {
+  color: #63d69a;
+}
+
+.minimal-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: flex-start;
+  padding: 3px 6px;
+  background: rgba(13, 18, 24, 0.005); /* 极低不透明度，人眼不可见，但能捕获鼠标事件防穿透 */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: none;
+  transition: background 0.25s ease, border-color 0.25s ease;
+  user-select: none;
+  cursor: grab;
+}
+
+.minimal-container:active {
+  cursor: grabbing;
+}
+
+.minimal-container:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.minimal-quotes {
+  display: flex;
+  align-items: center;
+  gap: 4px 8px;
+  flex: 1;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+
+.minimal-quote {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  color: #c1ccd4;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: default;
+}
+
+.minimal-quote b {
+  font-size: 13px;
+  color: #eef3f8;
+  font-weight: normal;
+}
+
+.minimal-quote.up span {
+  color: #ff7f7a;
+}
+
+.minimal-quote.down span {
+  color: #63d69a;
+}
+
+.minimal-quote.flat span {
+  color: #aab7c2;
+}
+
+.minimal-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  z-index: 10;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #88d7ef;
+  font-size: 10px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.minimal-container:hover .minimal-back-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.minimal-back-btn:hover {
+  background: rgba(136, 215, 239, 0.25);
+  color: #ffffff;
+}
+
+dl {
+  width: 100%;
+  justify-content: space-between;
+  margin: 0;
+}
+
+dt,
+dd,
+footer {
+  font-size: 12px;
+}
+
+dt {
+  color: #7f909e;
+}
+
+dd {
+  margin: 2px 0 0;
+  color: #dce6ee;
+}
+
+footer {
+  color: #9aa7b3;
+}
+
+/* 新增：普通模式下的头部拖动支持 */
+header {
+  cursor: grab;
+}
+
+header:active {
+  cursor: grabbing;
+}
+
